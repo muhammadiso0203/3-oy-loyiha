@@ -81,6 +81,25 @@ export class courseController {
     }
   }
 
+  async getByFilter(req, res) {
+    try {
+      const { category, price } = req.query;
+      const categoryData = await category.findOne({ name: category });
+      const Course = await course.find({
+        price: parseFloat(price),
+        category: categoryData._id,
+      }).populate('author');
+
+      return res.status(200).json({
+        statusCode: 200,
+        message: 'success',
+        data: Course,
+      });
+    } catch (error) {
+      return catchError(res, 500, error.message);
+    }
+  }
+
   static async findCoursesById(res, id) {
     try {
       const Course = await course.findById(id).populate('category author');

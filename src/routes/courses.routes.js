@@ -11,6 +11,7 @@ router
   .post('/', JwtAuthGuard, AuthorGuard, controller.createCourse)
   .get('/', controller.getAllCourses)
   .get('/:id', controller.getCoursesById)
+  .get('/filter', controller.getByFilter)
   .put('/:id', JwtAuthGuard, AuthorGuard, controller.updateById)
   .delete('/:id', JwtAuthGuard, AdminGuard, controller.deleteById);
 
